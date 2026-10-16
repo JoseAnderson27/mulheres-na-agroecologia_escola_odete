@@ -1,0 +1,515 @@
+/* =======================================================
+   1. VARIÁVEIS DE CORES E CONFIGURAÇÃO GERAL
+   ======================================================= */
+:root {
+    --bg-color: #f4f7f6;
+    --text-color: #333;
+    --title-color: #2c3e50;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-bg-solid: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 130px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+
+    /* CAMINHO CORRIGIDO: Puxa direto da pasta fundo da raiz */
+    background-image: linear-gradient(rgba(244, 247, 246, 0.4), rgba(244, 247, 246, 0.4)), url('fundo/fundo.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+h1 {
+    text-align: center;
+    color: var(--title-color);
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+h2 {
+    color: var(--title-color);
+    margin-top: 40px; 
+    margin-bottom: 15px;
+}
+
+/* =======================================================
+   2. CABEÇALHO COM EFEITO VIDRO FOSCO (GLASSMORPHISM) - AJUSTADO
+   ======================================================= */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 130px; 
+}
+
+.cabecalho {
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; /* Reduzimos um pouco o preenchimento para ganhar espaço */
+    background-color: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.container-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Diminuímos o espaço entre o logotipo e os botões */
+    flex-grow: 1;
+    justify-content: space-evenly; /* Distribui os botões de forma idêntica e elegante */
+}
+
+.logo {
+    max-width: 100px; /* Reduzimos levemente o tamanho do logo para liberar espaço na barra */
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.menu {
+    display: flex;
+    gap: 8px; /* Espaço mais compacto entre os links para caber tudo em uma linha */
+    align-items: center;
+}
+
+.menu a {
+    background-color: transparent;
+    color: var(--text-color);
+    text-decoration: none;
+    
+    /* AJUSTE CIRÚRGICO: Reduzimos as laterais para as palavras se aproximarem mais */
+    padding: 6px 7px; 
+    
+    font-weight: 600;
+    
+    /* AJUSTE CIRÚRGICO: Letra ligeiramente menor para o texto de 'Documentos' não vazar */
+    font-size: 0.76rem; 
+    
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Continua impedindo quebras feias de linha */
+}
+
+.menu a:hover {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* LINHA AZUL FIXA NO MENU */
+.menu a.link-ano.ativo {
+    color: #3498db !important;
+    background-color: rgba(52, 152, 219, 0.15);
+    font-weight: bold !important;
+}
+
+body.dark-mode .menu a.link-ano.ativo {
+    color: #5dade2 !important;
+    background-color: rgba(93, 173, 226, 0.15);
+}
+
+/* DESTAQUE DO BOTÃO SELECIONADO (FUNDO AZUL FLUIDO) */
+.menu a.link-ano.ativo {
+    color: #3498db !important;
+    background-color: rgba(52, 152, 219, 0.15);
+    font-weight: bold !important;
+}
+
+.logo-selo {
+    max-width: 60px; 
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* =======================================================
+   3. SEÇÕES OCULTÁVEIS E GALERIA
+   ======================================================= */
+.secao-ano {
+    display: none; /* Começam totalmente ocultas */
+    animation: surgir 0.4s ease forwards;
+}
+
+.secao-ano.ativa {
+    display: block; /* O JS ativa mudando para bloco */
+}
+
+@keyframes surgir {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; 
+    margin-bottom: 30px;
+}
+
+.galeria-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--card-bg-solid);
+    border-radius: 12px;
+    padding: 15px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+.galeria-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px; 
+    display: block;
+    cursor: pointer;
+}
+
+.video-bloqueado {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.video-bloqueado video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.galeria-item h3 {
+    font-size: 1rem;
+    margin: 5px 0 15px 0;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* =======================================================
+   4. AVISO DE GALERIA VAZIA E TABELA DE DOCUMENTOS
+   ======================================================= */
+.aviso-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--card-bg-solid);
+    border-radius: 12px;
+    border: 2px dashed #3498db;
+    margin: 20px 0;
+}
+
+.aviso-vazio .icone-aviso { font-size: 3rem; margin-bottom: 10px; }
+.aviso-vazio p { font-size: 1.1rem; opacity: 0.8; }
+
+.tabela-documentos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg-solid);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-top: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.tabela-documentos th, .tabela-documentos td { padding: 15px 20px; text-align: left; }
+.tabela-documentos th { background-color: #2c3e50; color: #ffffff; font-weight: 600; }
+.tabela-documentos tr { border-bottom: 1px solid var(--border-color); transition: background 0.2s; }
+.tabela-documentos tr:last-child { border-bottom: none; }
+.tabela-documentos tr:hover { background-color: rgba(52, 152, 219, 0.05); }
+.nome-doc { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+.icone-doc { font-size: 1.3rem; }
+
+/* Botões */
+.btn-download {
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+    margin-top: auto; 
+}
+.btn-foto { background-color: #3498db; }
+.btn-foto:hover { background-color: #2980b9; }
+.btn-video { background-color: #2ecc71; }
+.btn-video:hover { background-color: #27ae60; }
+.btn-tabela {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+.btn-tabela:hover { background-color: #c0392b; }
+
+.rodape { 
+    text-align: center; 
+    padding: 20px; 
+    margin-top: auto; /* Mola que joga para o fim absoluto da página */
+    background-color: var(--card-bg-solid); 
+    border-radius: 12px; 
+    border: 1px solid var(--border-color); 
+}
+.rodape p { margin: 5px 0; font-size: 0.9rem; opacity: 0.8; }
+
+/* =======================================================
+   5. JANELA DE VISUALIZAÇÃO (MODAL LIGHTBOX)
+   ======================================================= */
+.modal-foto {
+    display: none !important;
+    position: fixed;
+    z-index: 9999; 
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.93); 
+    overflow: auto;
+}
+
+.modal-foto.aberto {
+    display: block !important;
+}
+
+.conteudo-modal {
+    margin: auto;
+    display: block;
+    width: auto;
+    max-width: 85%;
+    max-height: 75vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+    object-fit: contain;
+    animation: zoomSuave 0.25s ease;
+}
+
+@keyframes zoomSuave {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#legenda-modal {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: #eee;
+    padding: 15px 0;
+    font-size: 1.15rem;
+}
+
+.botao-fechar {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+}
+.botao-fechar:hover { color: #3498db; }
+
+@media (max-width: 750px) {
+    .cabecalho { flex-direction: column; gap: 15px; text-align: center; top: 0; border-radius: 0; }
+    .container-nav { flex-direction: column; gap: 15px; }
+    .menu { flex-wrap: wrap; justify-content: center; }
+    .galeria { grid-template-columns: 1fr; gap: 20px; }
+    .galeria-item img, .video-bloqueado { height: auto; max-height: 250px; }
+    .tabela-documentos th, .tabela-documentos td { padding: 10px; font-size: 0.9rem; }
+}
+ /* =======================================================
+   REVISÃO CIRÚRGICA: VÍDEOS PERFEITOS E SEM ROLAGEM
+   ======================================================= */
+#secao-videos {
+    margin-top: 5px !important;
+    padding: 0 !important;
+}
+
+#secao-videos .galeria {
+    gap: 20px !important;
+    margin-top: 10px !important;
+}
+
+#secao-videos .galeria-item {
+    max-width: 300px !important; /* Mantém a proporção perfeita do cartão */
+    padding: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* Corrige o formato achatado das imagens de capa */
+#secao-videos .video-bloqueado img {
+    width: 100% !important;
+    height: 140px !important; /* Altura ideal proporcional */
+    object-fit: cover !important; /* Corta e ajusta as alunas com perfeição sem amassar */
+    border-radius: 8px !important;
+    display: block !important;
+}
+
+#secao-videos h3 {
+    font-size: 0.90rem !important;
+    margin-top: 8px !important;
+    margin-bottom: 2px !important;
+}
+
+/* =======================================================
+   RESTAURAÇÃO DO SITE: VÍDEOS ALINHADOS E SEM COMPACTAÇÃO
+   ======================================================= */
+
+/* 1. Remove a trava que quebrou o fundo do site */
+html, body {
+    max-height: none !important;
+    overflow-x: hidden !important; /* Some para sempre com a barra de rolagem horizontal inferior */
+}
+
+/* 2. Devolve o formato perfeito e natural das fotos de capa (sem distorcer) */
+#secao-videos .video-bloqueado img {
+    width: 100% !important;
+    height: 145px !important;
+    object-fit: cover !important; /* Alinha as alunas perfeitamente na caixa */
+    border-radius: 8px !important;
+    display: block !important;
+}
+
+/* 3. Reduz o tamanho do cabeçalho superior para economizar espaço e sumir a rolagem */
+.cabecalho {
+    padding: 5px 15px !important; /* Diminui a altura da barra branca do menu */
+    margin-bottom: 10px !important;
+}
+
+.cabecalho .logo {
+    height: 45px !important; /* Encolhe sutilmente os logotipos das pontas */
+    width: auto !important;
+}
+
+/* 4. Reduz o tamanho do título principal do site */
+h1 {
+    font-size: 1.5rem !important; /* Título mais compacto para o conteúdo subir */
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    text-align: center;
+}
+
+/* 5. Ajusta os cartões dos vídeos */
+#secao-videos .galeria-item {
+    max-width: 290px !important;
+    padding: 10px !important;
+}
+/* =======================================================
+   CENTRALIZAÇÃO E PADRONIZAÇÃO DOS VÍDEOS (HORIZONTAIS)
+   ======================================================= */
+#secao-videos .galeria {
+    display: flex !important;
+    justify-content: center !important; /* Centraliza na tela */
+    align-items: stretch !important;    /* Força os dois cartões a terem a mesma altura */
+    flex-wrap: wrap !important;
+    gap: 30px !important;
+    margin: 25px auto 40px auto !important; /* Adiciona margem embaixo para empurrar o rodapé */
+    width: 100% !important;
+}
+
+#secao-videos .galeria-item {
+    width: 340px !important; /* Largura perfeita para o player ficar deitado de cinema */
+    max-width: 100% !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
+
+/* Força as imagens de capa a ficarem horizontais de cinema (proporção 16:9) */
+#secao-videos .video-bloqueado img {
+    width: 100% !important;
+    height: 180px !important;    /* Altura horizontal fixa */
+    object-fit: cover !important; /* Corta e enquadra o conteúdo perfeitamente sem amassar */
+    border-radius: 8px !important;
+    display: block !important;
+}
+
+#secao-videos h3 {
+    font-size: 0.95rem !important;
+    margin-top: 12px !important;
+    margin-bottom: 5px !important;
+    text-align: center !important;
+}
+
+/* =======================================================
+   RODAPÉ SOFISTICADO AJUSTADO PARA A BASE
+   ======================================================= */
+.rodape {
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 12px !important;
+    padding: 20px 25px !important;
+    margin-top: auto !important; /* Força o rodapé a colar na base se a tela estiver vazia */
+    margin-bottom: 15px !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08) !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.rodape p {
+    color: #4a7c59 !important;
+    font-size: 0.90rem !important;
+    line-height: 1.6 !important;
+    margin: 6px 0 !important;
+}
+
+.rodape p:last-child {
+    color: #4682B4 !important; /* Mantém o lindo azul suave que você escolheu */
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+}
